@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game</title>
+    <style>
+        #scoreDisplay {
+        font-size: 18px;
+        margin-bottom: 10px;
+        background-color: rgb(182, 219, 206);
+        }
+        #resultDisplay {
+        font-size: 16px;
+        margin-top: 10px;
+        }
+        button{
+            background-color: rgb(168, 168, 217);
+        }
+    </style>
 </head>
 <body>
+    <button id ='rock'>Rock</button>
+    <button id ='scissor'>Scissor</button>
+    <button id ='paper'>Paper</button>
+
+    <div id="scoreDisplay">Player: 0 | Computer: 0</div>
+    <div id="resultDisplay"></div>
+
     <script src="main.js"></script>
 </body>
 </html>
