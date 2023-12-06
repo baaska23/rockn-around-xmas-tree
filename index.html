@@ -3,30 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Document</title>
     <style>
-        #scoreDisplay {
-        font-size: 18px;
-        margin-bottom: 10px;
-        background-color: rgb(182, 219, 206);
-        }
-        #resultDisplay {
-        font-size: 16px;
-        margin-top: 10px;
+        body{
+            background-color: antiquewhite;
+            text-align: center;
         }
         button{
-            background-color: rgb(168, 168, 217);
+            margin: 50px;
+            padding: 20px;
+            background-color: rgb(225, 236, 166);
+            
+        }
+        #scoreDisplay{
+            font-weight: bold;
+            margin: auto;
+            background-color: rgb(234, 216, 216);
+            width: 180px;
+           
+        }
+        #resultDisplay{
+            background-color: rgb(234, 216, 216);
+            font-weight: bolder;
+            width: 200px;
+            margin: auto;
+            
         }
     </style>
 </head>
 <body>
-    <button id ='rock'>Rock</button>
-    <button id ='scissor'>Scissor</button>
-    <button id ='paper'>Paper</button>
+    <button id="rock">Rock</button>
+    <button id="scissor">Scissor</button>
+    <button id="paper">Paper</button>
 
-    <div id="scoreDisplay">Player: 0 | Computer: 0</div>
     <div id="resultDisplay"></div>
+    <div id="scoreDisplay">Player: 0 | Computer: 0</div>
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+        const winningScore = 5;
+        let winner = '';
 
-    <script src="main.js"></script>
+        function computerChoose(){
+            let randomNumber = Math.floor(Math.random()*3); // 0s 1 iin hoorondshde
+            switch(randomNumber){
+                case 0:
+                    return 'rock';
+                case 1:
+                    return 'paper';
+                case 2:
+                    return 'scissor';
+            }
+        }
+
+        function playRound(playerChoice, computerChoice){
+            let result = '';
+            computerChoice = computerChoose();
+
+            if(playerChoice == computerChoice){
+                result = 'Tied bitch!';
+            }
+            else if((playerChoice == 'rock' && computerChoice == 'scissor')||
+               (playerChoice == 'paper' && computerChoice == 'rock') ||
+               (playerChoice == 'scissor' && computerChoice == 'paper')){
+                result = 'Player win this round!';
+                playerScore++;
+            }
+
+            else if((computerChoice == 'rock' && playerChoice == 'scissor')||
+               (computerChoice == 'paper' && playerChoice == 'rock') ||
+               (computerChoice == 'scissor' && playerChoice == 'paper')){
+                result = 'Computer win this round!';
+                computerScore++;
+            }
+
+            document.getElementById('resultDisplay').innerText = result;
+            document.getElementById('scoreDisplay').innerText = `Player: ${playerScore} | Computer: ${computerScore}`;
+
+            if(playerScore == winningScore || computerScore == winningScore){
+                announceTheKing();
+                document.getElementById('resultDisplay').innerText = 'GAME OVER';
+                removeListeners(); 
+            }
+        }
+
+        document.getElementById('rock').addEventListener('click', function(){
+            playRound('rock', computerChoose());
+        });
+
+        document.getElementById('paper').addEventListener('click', function(){
+            playRound('paper', computerChoose());
+        });
+
+        document.getElementById('scissor').addEventListener('click', function(){
+            playRound('scissor', computerChoose());
+        });
+
+        function announceTheKing(){
+            if(playerScore > computerScore){
+                document.getElementById('resultDisplay').innerText = "YOU WON!";
+            } else {
+                document.getElementById('resultDisplay').innerText = 'LOSER!';
+            }
+        }
+
+        function removeListeners(){
+            document.getElementById('rock').removeEventListener('click', ()=>{
+                playRound('rock', computerChoose());
+            });
+
+            document.getElementById('paper').removeEventListener('click', ()=>{
+                playRound('paper', computerChoose());
+            });
+
+            document.getElementById('scissor').removeListeners('click', ()=>{
+                playRound('scissor', computerChoose());
+            });
+        }
+    </script>
 </body>
 </html>
